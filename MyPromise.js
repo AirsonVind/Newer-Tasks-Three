@@ -53,6 +53,8 @@ let promise = new MyPromise(function(resolve, reject) {
 
 promise.then(function() {
     console.log('resolved.');
+},function () {
+    
 });
 
 console.log('Hi!');
