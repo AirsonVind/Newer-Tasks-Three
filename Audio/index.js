@@ -4,6 +4,14 @@ var audio_player = document.getElementById("audioPlayer");
 var progressDot = document.getElementById("progressDot");
 var current_tiem = document.getElementsByClassName("audio-length-current")[0];
 var total_time = document.getElementsByClassName("audio-length-total")[0];
+var progressBarBg = document.getElementById("progressBarBg");
+var duration;
+
+setTimeout(function () {
+    duration = audio.duration;
+    total_time.innerHTML = transTime(duration);
+},1000);
+
 play_control.onclick = function () {
     if (audio.paused){
         audio.play();
@@ -17,27 +25,38 @@ play_control.onclick = function () {
 audio.addEventListener('timeupdate',function () {
     updatePrograss(audio);
 });
+audio.addEventListener('ended',function () {
+    audioEnded();
+});
+
+
 
 function updatePrograss(audio) {
-    var value = audio.currentTime / audio.duration;
-    progressDot.style.left = value * 100 + '%';
-    current_tiem.innerHTML = transTime(value);
+
 }
 
-function transTime(value) {
-    var time;
-    var m = parseInt(value / 60);
-    var s = parseInt(value % 60);
-    if (m < 1){
-        m = '00';
-    }
-    if ((m < 10)&&(m >= 1)){
-        m = '0' + m;
-    }
-    if (s < 10){
-        s = '0' + s;
-    }
-    time = m + ":" + s;
+function transTime(time){
+    time = parseInt(time);
+    var m = Math.floor((time / 60 % 60));
+    var s = Math.floor((time % 60));
+    time = m + ':' + s;
     return time;
 }
 
+function audioEnded() {
+    progressDot.style.left = 0;
+    audio_player.src = 'pic/play.png';
+}
+
+setTimeout(function () {
+    progressBarBg.onmousedown = function (e) {
+        var pgsWidth = progressBarBg.clientWidth;
+        var rate = e.offsetX / pgsWidth;
+        console.log( duration * rate);
+        audio.currentTime = duration * rate;
+        console.log(audio.currentTime);
+        var value = audio.currentTime / audio.duration;
+        console.log(value);
+        progressDot.style.left = value * 100 + '%';
+    };
+},1000);
