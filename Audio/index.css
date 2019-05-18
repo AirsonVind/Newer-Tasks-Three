@@ -1,6 +1,5 @@
 .audio-wrapper {
     background-color: #fcfcfc;
-    margin: 10px auto;
     max-width: 670px;
     height: 70px;
     border: 1px solid #e0e0e0;
@@ -73,4 +72,29 @@
 .audio-length-current {
     float: left;
     font-size: 12px;
+}
+.audio-volume div{
+    float: left;
+    margin-right: 20px;
+}
+.audio-volume div p{
+    margin: 5px;
+}
+#volume-control{
+    cursor: pointer;
+}
+#play-rate{
+    cursor: pointer;
+}
+.lyrics-bar{/*歌词显示区域*/
+    height: 300px; /*歌词区域高度*/
+    overflow: hidden; /*隐藏超出部分*/
+    margin-top: 40px;
+}
+.lyrics{/*歌词列表*/
+    line-height: 20px;
+    transition-duration: 600ms;/*滚动速度*/
+}
+.lyrics .lineHigh{/*高亮行*/
+    color: red;
 }

@@ -8,17 +8,29 @@
 <body>
 <div class="audio-wrapper">
     <audio>
-        <source src="src/Wildfire.mp3" type="audio/mp3">
+        <source src="src/βios.mp3" type="audio/mp3">
     </audio>
     <div class="audio-left"><img id="audioPlayer" src="pic/play.png" alt="play"></div>
     <div class="audio-right">
-        <p style="max-width: 536px;">Wildire.mp3</p>
+        <p style="max-width: 536px;">βios.mp3</p>
         <div class="progress-bar-bg" id="progressBarBg"><span id="progressDot"></span>
             <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="audio-time"><span class="audio-length-current" id="audioCurTime">00:00</span><span class="audio-length-total"></span></div>
     </div>
+    <div class="audio-volume">
+        <div>
+            <img id="volume-control" src="pic/volume.png" alt="volume" style="width: 30px;height: 30px">
+        </div>
+        <div>
+            <p id="play-rate">x1.0</p>
+        </div>
+    </div>
+</div>
+<div class="lyrics-bar">
+    <ul class="lyrics"></ul>
 </div>
 </body>
 <script src="index.js"></script>
+<script src="lyrics.js"></script>
 </html>
