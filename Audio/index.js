@@ -32,13 +32,19 @@ audio.addEventListener('ended',function () {
 });
 
 
-
+/**
+ * @param {audio} audio
+ */
 function updatePrograss(audio) {
     var value = audio.currentTime / audio.duration;
     progressDot.style.left = value * 100 + '%';
     current_time.innerHTML = transTime(audio.currentTime);
 }
 
+/**
+ * @param {number} time
+ * @returns {string}
+ */
 function transTime(time){
     time = parseInt(time);
     var m = Math.floor((time / 60 % 60));

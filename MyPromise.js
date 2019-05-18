@@ -2,6 +2,11 @@ const PENDING = 0;
 const FULFILLED = 1;
 const REJECTED = -1;
 
+/**
+ *MyPromise构造器
+ * @param {function} fn
+ * @returns {function}
+ */
 function MyPromise(fn) {
     const self = this;
     self.value = null;
@@ -159,21 +164,6 @@ MyPromise.race = function(promises) {
 
 
 
-let promise = new MyPromise(function(resolve, reject) {
-    console.log('Promise');
-    resolve();
-});
-
-promise.then(function() {
-    console.log('resolved.');
-}).then(function () {
-    console.log('resolved twice');
-});
-
-console.log('Hi!');
-
-
-
 
 
 
@@ -198,7 +188,6 @@ const getJSON = function(url) {
         client.setRequestHeader("Accept", "application/json");
         client.send();
     });
-
     return promise;
 };
 

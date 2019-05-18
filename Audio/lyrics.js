@@ -19,6 +19,9 @@ var oLRC = {
     ms: [] //歌词数组{t:时间,c:歌词}
 };
 
+/**
+ * @param {string} lrc
+ */
 function createLrcObj(lrc) {
     if(lrc.length === 0) return;
     var lrcs = lrc.split('\n');//用回车拆分成数组
@@ -54,6 +57,7 @@ function createLrcObj(lrc) {
     });
 
 }
+
 //设置异步以保证获取歌词
 setTimeout(function () {
     createLrcObj(lrc);
@@ -69,11 +73,23 @@ function showLRC() {
 }
 
 
-var lineNo = 0;
-var C_pos = 6;
+var lineNo = 0;//当前行
+var C_pos = 6;//基准位置
 var offset = -20; //滚动距离（等于行高）
 var audio = document.getElementsByTagName('audio')[0];
 var ul = document.getElementsByClassName("lyrics")[0];
+
+
+//监听播放器的timeupdate事件，实现文字与音频播放同步
+audio.ontimeupdate = function () {
+    if(lineNo === oLRC.ms.length)
+        return;
+    var curTime = audio.currentTime; //播放器时间
+    if(parseFloat(oLRC.ms[lineNo].t) <= curTime){
+        lineHigh();//高亮当前行并且去除上一行的高亮形式
+        lineNo++;
+    }
+};
 
 //高亮显示歌词当前行及文字滚动控制，行号为lineNo
 function lineHigh() {
@@ -89,26 +105,15 @@ function lineHigh() {
     }
 }
 
-//滚回到开头，用于播放结束时
-function goback() {
-    document.querySelector("#lyric .lineHigh").removeAttribute("class");
-    ul.style.transform = "translateY(0)";
-    lineNo = 0;
-}
-
-//监听播放器的timeupdate事件，实现文字与音频播放同步
-audio.ontimeupdate = function () {
-    if(lineNo === oLRC.ms.length)
-        return;
-    var curTime = audio.currentTime; //播放器时间
-    if(parseFloat(oLRC.ms[lineNo].t)<=curTime){
-        lineHigh();//高亮当前行
-        lineNo++;
-    }
-};
 
 //监听播放器的ended事件，播放结束时回滚歌词
 audio.onended = function () {
     goback(); //回滚歌词
 };
 
+//滚回到开头，用于播放结束时
+function goback() {
+    document.getElementsByClassName('lineHigh')[0].removeAttribute("class");
+    ul.style.transform = "translateY(0)";
+    lineNo = 0;
+}

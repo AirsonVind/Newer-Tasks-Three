@@ -87,14 +87,17 @@
     cursor: pointer;
 }
 .lyrics-bar{/*歌词显示区域*/
+    width: 400px;
     height: 300px; /*歌词区域高度*/
     overflow: hidden; /*隐藏超出部分*/
     margin-top: 40px;
+    background-color: #d9d9d9;
 }
 .lyrics{/*歌词列表*/
     line-height: 20px;
     transition-duration: 600ms;/*滚动速度*/
 }
 .lyrics .lineHigh{/*高亮行*/
-    color: red;
+    color: #3e87e8;
+    font-size: 20px;
 }
